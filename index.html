@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="assets/theme/css/style.css">
   <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700,800,300i,400i,500i,600i,700i,800i&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700,800,300i,400i,500i,600i,700i,800i&display=swap"></noscript>
-  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=JnWGfq"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=JnWGfq" type="text/css">
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=xiOHHq"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=xiOHHq" type="text/css">
 
   
   <!-- Google Tag Manager -->
@@ -61,6 +61,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    // Função para separar o DDD do telefone
+    function splitPhoneNumber(phone) {
+        const cleanPhone = phone.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+        const ddd = cleanPhone.slice(0, 2); // Os dois primeiros números são o DDD
+        const phoneNumber = cleanPhone.slice(2); // O restante é o número do telefone
+        return { ddd, phoneNumber };
+    }
+
     // Adiciona evento ao formulário
     const form = document.querySelector("form.mbr-form");
     if (form) {
@@ -80,6 +88,9 @@ document.addEventListener("DOMContentLoaded", function() {
             const email = form.querySelector("input[name='email']").value;
             const phone = form.querySelector("input[name='phone']").value;
 
+            // Separa o DDD e o número do telefone
+            const { ddd, phoneNumber } = splitPhoneNumber(phone);
+
             // Coleta valores adicionais como utm, ip, url, e language
             const utm_source = getQueryParam('utm_source');
             const utm_medium = getQueryParam('utm_medium');
@@ -92,8 +103,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Verifica se os campos obrigatórios estão preenchidos
             if (email && phone) {
-                // Redireciona para o checkout da Hotmart com email e phone via webhook
-                const hotmartUrl = `https://pay.hotmart.com/P94742783C?off=565q5ols&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}`;
+                // Redireciona para o checkout da Hotmart com email, DDD e número do telefone via webhook
+                const hotmartUrl = `https://pay.hotmart.com/P94742783C?off=565q5ols&email=${encodeURIComponent(email)}&phoneac=${encodeURIComponent(ddd)}&phonenumber=${encodeURIComponent(phoneNumber)}`;
 
                 // Cria um novo FormData e adiciona campos UTM e outros dados ao formulário
                 const formData = new FormData(form);
