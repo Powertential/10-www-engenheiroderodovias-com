@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="assets/theme/css/style.css">
   <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700,800,300i,400i,500i,600i,700i,800i&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700,800,300i,400i,500i,600i,700i,800i&display=swap"></noscript>
-  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=xiOHHq"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=xiOHHq" type="text/css">
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=GX4Osm"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=GX4Osm" type="text/css">
 
   
   <!-- Google Tag Manager -->
@@ -73,17 +73,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const form = document.querySelector("form.mbr-form");
     if (form) {
         form.addEventListener("submit", async function(event) {
-            // Dispara evento de inscrição no Meta Pixel
-            if (typeof fbq !== 'undefined') {
-                fbq('track', 'Lead'); // Evento de lead para Meta Pixel
-            }
-
-            // Dispara evento de generate_lead e begin_checkout no Google Analytics
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'generate_lead');
-                gtag('event', 'begin_checkout');
-            }
-
             // Coleta valores de email e phone
             const email = form.querySelector("input[name='email']").value;
             const phone = form.querySelector("input[name='phone']").value;
